@@ -12,7 +12,7 @@
 
 /* GENERAL
 ----------------------------------------------- */
-@import url();
+/* @import url(); */
 /* usually I get my fonts on https://fonts.bunny.net */
 
 :root {
@@ -24,6 +24,18 @@
   --border-color: hsl(0, 4%, 84%);
 }
 
+body {
+  background-image: linear-gradient(20deg,
+      hsl(176deg 36% 58%) 0%, hsl(171deg 39% 60%) 5%,hsl(164deg 40% 62%) 10%,
+      hsl(156deg 41% 64%) 15%,hsl(146deg 41% 67%) 19%,hsl(133deg 40% 69%) 24%,
+      hsl(115deg 40% 72%) 28%,hsl(97deg 45% 71%) 33%,hsl(83deg 49% 70%) 37%,
+      hsl(71deg 53% 70%) 42%,hsl(60deg 55% 69%) 47%,hsl(51deg 65% 70%) 51%,
+      hsl(45deg 66% 68%) 56%,hsl(39deg 66% 66%) 60%,hsl(35deg 64% 65%) 65%,
+      hsl(30deg 61% 63%) 70%,hsl(26deg 58% 61%) 75%,hsl(21deg 54% 60%) 79%,
+      hsl(16deg 49% 58%) 84%,hsl(12deg 44% 56%) 90%,hsl(6deg 38% 54%) 95%,
+      hsl(0deg 33% 52%) 100%);
+  display: flex;
+}
 
 /* reset
 ------------------------ */
@@ -31,6 +43,10 @@
   box-sizing: inherit;
   /* Uncomment next line when you're lost */
   /* border: 1px dotted red; */
+}
+
+html, body {
+  height: 100%;
 }
 
 html {
@@ -77,9 +93,36 @@ input, button, textarea, select {
 
 /* font styling
 ------------------------ */
+h1 {
+  /* color: var(--accent-color); */
+}
 
 /* HEADER
 ----------------------------------------------- */
 
 /* CONTENT
 ----------------------------------------------- */
+
+#content {
+  background-color: var(--background-color);
+  width: 100%;
+  margin: 3rem;
+  border-radius: 25px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+#content, nav {
+  -webkit-box-shadow: 0px 3px 24px -8px rgba(145, 112, 67, 0.2);
+  -moz-box-shadow: 0px 3px 24px -8px rgba(145, 112, 67, 0.2);
+  box-shadow: 0px 3px 24px -8px rgba(145, 112, 67, 0.2);
+}
+
+nav, main {
+  padding: 2rem;
+}
+
+nav {
+  background-color: var(--border-color);
+}
