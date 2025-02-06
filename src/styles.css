@@ -1,0 +1,85 @@
+/*
+    NAME OF THE PROJECT (subtitle)
+    by Cahdmus
+
+    Table of Contents:
+        GENERAL
+            reset
+            font styling
+        HEADER
+        CONTENT
+*/
+
+/* GENERAL
+----------------------------------------------- */
+@import url();
+/* usually I get my fonts on https://fonts.bunny.net */
+
+:root {
+  --background-color: hsl(0, 0%, 91%);
+  --font-color: hsl(112, 65%, 7%);
+  --accent-font-color: hsl(0, 0%, 53%);
+  --accent-color: hsl(46, 100%, 45%);
+  --secondary-accent-color: hsl(9, 81%, 47%);
+  --border-color: hsl(0, 4%, 84%);
+}
+
+
+/* reset
+------------------------ */
+*, *:before, *:after {
+  box-sizing: inherit;
+  /* Uncomment next line when you're lost */
+  /* border: 1px dotted red; */
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  line-height: 1.5;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+
+/* font styling
+------------------------ */
+
+/* HEADER
+----------------------------------------------- */
+
+/* CONTENT
+----------------------------------------------- */
