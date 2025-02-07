@@ -12,16 +12,19 @@
 
 /* GENERAL
 ----------------------------------------------- */
-/* @import url(); */
+@import url(https://fonts.bunny.net/css?family=anek-latin:200|bebas-neue:400);
 /* usually I get my fonts on https://fonts.bunny.net */
 
 :root {
-  --background-color: hsl(0, 0%, 91%);
-  --font-color: hsl(112, 65%, 7%);
-  --accent-font-color: hsl(0, 0%, 53%);
-  --accent-color: hsl(46, 100%, 45%);
-  --secondary-accent-color: hsl(9, 81%, 47%);
-  --border-color: hsl(0, 4%, 84%);
+  --background-color: hsla(0, 0%, 91%, 0.7);
+  --font-color: hsl(37, 17%, 29%);
+  --accent-font-color: hsl(0, 0%, 91%);
+  --accent-color: hsl(28, 59%, 62%);
+  --secondary-accent-color: hsl(11, 43%, 55%);
+  --border-color: hsl(56, 20%, 85%);
+
+  --main-font: 'Anek Latin', sans-serif;
+  --accent-font: 'Bebas Neue', display;
 }
 
 body {
@@ -51,10 +54,12 @@ html, body {
 
 html {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: clamp(1rem, 0.75rem + .75vw, 1.5rem);
 }
 
 body {
+  font-family: var(--main-font);
+  color: var(--font-color);
   line-height: 1.5;
 }
 
@@ -74,6 +79,7 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
+  font-family: var(--accent-font);
 }
 
 ol, ul {
@@ -91,10 +97,40 @@ input, button, textarea, select {
 }
 
 
-/* font styling
+/* styling
 ------------------------ */
 h1 {
+  text-transform: uppercase;
+  font-weight: bolder;
   /* color: var(--accent-color); */
+}
+nav > h1 {
+  text-align: center;
+}
+button {
+  background-color: var(--accent-color);
+  border: none;
+  padding: .5rem .7rem;
+  border-radius: 15px;
+  margin: .5rem;
+  font-family: var(--accent-font);
+  color: var(--accent-font-color);
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--secondary-accent-color);
+}
+hr {
+  color: var(--border-color);
+  opacity: 40%;
+}
+li {
+  padding: .2rem;
+}
+li:hover {
+  padding-left: .5rem;
+  background-color: var(--border-color);
+  cursor: pointer;
 }
 
 /* HEADER
@@ -106,7 +142,7 @@ h1 {
 #content {
   background-color: var(--background-color);
   width: 100%;
-  margin: 3rem;
+  margin: 2rem;
   border-radius: 25px;
   overflow: hidden;
   display: grid;
@@ -120,9 +156,33 @@ h1 {
 }
 
 nav, main {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 nav {
-  background-color: var(--border-color);
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+hr {
+  width: 90%;
+}
+#projects {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#credits {
+  text-align: center;
+  font-size: .75rem;
+  opacity: 50%;
+}
+
+#projectContainer {
+  width: 100%;
+  text-align: left;
 }
