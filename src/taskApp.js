@@ -1,66 +1,83 @@
 import { Project, Task } from "./constructors";
+import { displayTasks } from "./displayTasks";
 
 const taskApp = {
+
     myProjects: [],
     init() {
-
+        this.cacheDOM();
+        this.appendDOM();
+        this.defaultProjects();
+        displayTasks.init(this.myProjects[0]);
+        this.bindAddBtn();
     },
     cacheDOM() {
-        const container = document.createElement('div');
-        container.setAttribute('id', 'projects');
-
-        const projectContainer = document.createElement('ul');
-        projectContainer.setAttribute('id', 'projectContainer');
-
-        const hr = document.createElement('hr');
-
-        const addBtn = document.createElement('button');
-        addBtn.setAttribute('id', 'addBtn');
-        addBtn.innerHTML = 'New Project';
-
-        return { container, projectContainer, hr, addBtn }
+        this.projectDisplay = document.querySelector('#projectDisplay');
     },
-    defaultProjects() {
-        this.myProjects.push(new Project('Irving B. is the best'));
-        this.myProjects.push(new Project('my baby boi'));
-        this.myProjects.push(new Project('so sad'));
-        return this.myProjects;
+    appendDOM() {
+        this.projectContainer = document.createElement('ul');
+        this.projectContainer.setAttribute('id', 'projectContainer');
+        this.projectDisplay.appendChild(this.projectContainer);
+        
+        this.hr = document.createElement('hr');
+        this.projectDisplay.appendChild(this.hr);
+        
+        this.addBtn = document.createElement('button');
+        this.addBtn.setAttribute('id', 'addBtn');
+        this.addBtn.innerHTML = 'New Project';
+        this.projectDisplay.appendChild(this.addBtn);
     },
-    displayNav() {
-        const container = this.cacheDOM().container
-        const projectContainer = this.displayProjects()
-        const hr = this.cacheDOM().hr
-        const addBtn = this.addProject();
-
-        container.innerHTML = "";
-        container.appendChild(projectContainer);
-        container.appendChild(hr);
-        container.appendChild(addBtn);
-
-        return container
+    bindEvents(project, tab, delBtn) {
+        tab.addEventListener('click', () => {
+            displayTasks.init(project);
+        });
+        
+        delBtn.addEventListener('click', () => {
+            this.removeProject(project, tab);
+        });
     },
-    displayProjects() {
-        const projectContainer = this.cacheDOM().projectContainer;
-
-        this.defaultProjects();
-        this.myProjects.forEach((project) => {
-            const display = document.createElement('li');
-            display.innerHTML = project.title;
-            projectContainer.appendChild(display);
-        })
-
-        return projectContainer
+    bindAddBtn() {        
+        this.addBtn.addEventListener('click', () => {
+            this.addProject();
+        });
     },
     addProject() {
-        const addBtn = this.cacheDOM().addBtn;
-        addBtn.addEventListener('click', () => {
-            const newProject = prompt('Name of new project', 'enter name');
-            this.myProjects.push(new Project(newProject));
-        })
-
-        return addBtn
+        const title = prompt('Name of new project', 'enter name');
+        const id = Project.projectCount;
+        const newProject = new Project(title, id);
+        this.myProjects.push(newProject);
+        this.render(newProject);
     },
+    removeProject(project, tab) {
+        this.projectContainer.removeChild(tab);
+        this.myProjects.splice(project.id, 1)
+        this.cacheDOM();
+    },
+    render(project) {
+        const tab = document.createElement('li');
+        tab.classList.add('project');
+        tab.innerHTML = project.title;
+        
+        const delBtn = document.createElement('button');
+        delBtn.classList.add('delBtn');
+        delBtn.innerHTML = 'delete';
+        tab.appendChild(delBtn);
 
+        this.projectContainer.appendChild(tab);
+        this.bindEvents(project, tab, delBtn);
+        this.cacheDOM();
+    },
+    defaultProjects() {
+        const project1 = new Project('Irving B. is the best', 0)
+        const defaultTasks = [new Task('sup'), new Task('Test test test')];
+        project1.tasks = defaultTasks;
+        this.myProjects.push(project1);
+        this.myProjects.push(new Project('my baby boi', 1));
+        this.myProjects.push(new Project('so sad', 2));
+        this.myProjects.forEach((project) => {
+            this.render(project);
+        })
+    },
 }
 
 export { taskApp };

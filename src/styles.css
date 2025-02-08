@@ -126,10 +126,11 @@ hr {
 }
 li {
   padding: .2rem;
+  display: flex;
+  justify-content: space-between;
 }
 li:hover {
   padding-left: .5rem;
-  background-color: var(--border-color);
   cursor: pointer;
 }
 
@@ -149,7 +150,7 @@ li:hover {
   grid-template-columns: 1fr 3fr;
 }
 
-#content, nav {
+#content, nav, .task {
   -webkit-box-shadow: 0px 3px 24px -8px rgba(145, 112, 67, 0.2);
   -moz-box-shadow: 0px 3px 24px -8px rgba(145, 112, 67, 0.2);
   box-shadow: 0px 3px 24px -8px rgba(145, 112, 67, 0.2);
@@ -168,12 +169,31 @@ nav {
 hr {
   width: 90%;
 }
-#projects {
+#projectDisplay {
   flex-grow: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#projectDisplay li:hover {
+  background-color: var(--border-color);
+}
+
+
+
+#projectDisplay li > button {
+  color: var(--accent-color);
+  background-color: var(--border-color);
+  font-size: .5rem;
+  padding: .4rem;
+  border-radius: 5px;
+  margin: 0;
+}
+#projectDisplay li > button:hover {
+  background-color: var(--accent-color);
+  color: var(--border-color);
 }
 
 #credits {
@@ -185,4 +205,14 @@ hr {
 #projectContainer {
   width: 100%;
   text-align: left;
+}
+
+
+/* Tasks
+------------------------ */
+
+.task {
+  background-color: var(--background-color);
+  margin: .5rem;
+  padding: .5rem;
 }

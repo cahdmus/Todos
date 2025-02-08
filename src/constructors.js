@@ -1,8 +1,13 @@
 class Project {
-    constructor(title) {
+    static projectCount = 0;
+
+    constructor(title, id) {
+        Project.projectCount++;
         this.title = title;
-        this.tasks = {}
+        this.id = id;
+        this.tasks = {};
     }
+
 
     get title() {
         return this._title;
@@ -21,7 +26,8 @@ class Project {
 }
 
 class Task extends Project {
-    constructor(desc) {
+    constructor(title, desc) {
+        super(title);
         this.desc = desc;
         this.isDone = false;
         // this.dueDate = dueDate;
