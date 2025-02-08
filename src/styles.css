@@ -21,6 +21,7 @@
   --accent-font-color: hsl(0, 0%, 91%);
   --accent-color: hsl(28, 59%, 62%);
   --secondary-accent-color: hsl(11, 43%, 55%);
+  --third-accent-color: hsl(175, 37%, 58%);
   --border-color: hsl(56, 20%, 85%);
 
   --main-font: 'Anek Latin', sans-serif;
@@ -130,7 +131,6 @@ li {
   justify-content: space-between;
 }
 li:hover {
-  padding-left: .5rem;
   cursor: pointer;
 }
 
@@ -179,11 +179,11 @@ hr {
 
 #projectDisplay li:hover {
   background-color: var(--border-color);
+  padding-left: .5rem;
 }
 
-
-
 #projectDisplay li > button {
+  align-self: center;
   color: var(--accent-color);
   background-color: var(--border-color);
   font-size: .5rem;
@@ -210,9 +210,74 @@ hr {
 
 /* Tasks
 ------------------------ */
-
 .task {
   background-color: var(--background-color);
   margin: .5rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: .3rem 2.5rem 1fr 3rem;
+  grid-template-rows: 1fr 1fr;
+}
+
+.colorBox {
+  background-color: var(--accent-color);
+  grid-area: 1 / 1 / 3 / 2;
+}
+
+.checkbox {
+  grid-area: 1 / 2 / 3 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--border-color);
+  margin: 0;
+  font: inherit;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.15rem solid var(--accent-color);
+  border-radius: 100%;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  background-color: CanvasText;
+  background-color: var(--secondary-accent-color);
+}
+
+input[type="checkbox"]:checked::before {
+  background-color: var(--secondary-accent-color);
+  transform: scale(1);
+}
+
+.title {
+  grid-area: 1 / 3 / 2 / 4;
+  font-weight: bolder;
+}
+
+.desc {
+  grid-area: 2 / 3 / 3 / 4;
+  text-transform: uppercase;
+  font-size: .7rem;
+  margin-left: .5rem;
+}
+
+.dueDate {
+  grid-area: 1 / 4 / 3 / 5;
   padding: .5rem;
+  font-size: .7rem;
+  text-align: right;
 }

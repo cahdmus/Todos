@@ -28,6 +28,10 @@ const taskApp = {
         this.projectDisplay.appendChild(this.addBtn);
     },
     bindEvents(project, tab, delBtn) {
+        tab.addEventListener('dblclick', () => {
+            this.renameProject(project, tab);
+        });
+
         tab.addEventListener('click', () => {
             displayTasks.init(project);
         });
@@ -52,6 +56,14 @@ const taskApp = {
         this.projectContainer.removeChild(tab);
         this.myProjects.splice(project.id, 1)
         this.cacheDOM();
+    },
+    renameProject(project, tab) {
+        const newTitle = prompt('New Title', 'Enter new title');
+        project.title = newTitle;
+        tab.innerHTML = newTitle;
+        // I should be able to just do render but the way I wrote render
+        // makes it "impossible" but it should be easy to rewroke adding
+        // a "createTab" function then rendering it
     },
     render(project) {
         const tab = document.createElement('li');
