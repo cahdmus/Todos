@@ -23,6 +23,7 @@
   --secondary-accent-color: hsl(11, 43%, 55%);
   --third-accent-color: hsl(175, 37%, 58%);
   --border-color: hsl(56, 20%, 85%);
+  --accent-border-color: hsl(53, 16%, 78%);
 
   --main-font: 'Anek Latin', sans-serif;
   --accent-font: 'Bebas Neue', display;
@@ -117,6 +118,7 @@ button {
   font-family: var(--accent-font);
   color: var(--accent-font-color);
   cursor: pointer;
+  align-self: center;
 }
 button:hover {
   background-color: var(--secondary-accent-color);
@@ -183,7 +185,6 @@ hr {
 }
 
 #projectDisplay li > button {
-  align-self: center;
   color: var(--accent-color);
   background-color: var(--border-color);
   font-size: .5rem;
@@ -210,6 +211,16 @@ hr {
 
 /* Tasks
 ------------------------ */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#tasksContainer {
+  flex-grow: 1;
+}
+
 .task {
   background-color: var(--background-color);
   margin: .5rem;
@@ -234,12 +245,12 @@ hr {
 input[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;
-  background-color: var(--border-color);
+  background-color: var(--accent-font-color);
   margin: 0;
   font: inherit;
   width: 1.5rem;
   height: 1.5rem;
-  border: 0.15rem solid var(--accent-color);
+  border: 0.1rem solid var(--accent-border-color);
   border-radius: 100%;
   transform: translateY(-0.075em);
   display: grid;
@@ -280,4 +291,44 @@ input[type="checkbox"]:checked::before {
   padding: .5rem;
   font-size: .7rem;
   text-align: right;
+}
+
+/* Add New Task
+------------------------ */
+#addNewTask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#newTaskInput {
+  height: 2rem;
+  flex-grow: 1;
+}
+
+#newTaskBtn {
+  border-radius: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+input[type="text"] {
+  background-color: var(--background-color);
+  border: var(--accent-border-color) .1rem solid;
+  border-radius: 5rem;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  color: var(--accent-border-color);
+  padding-left: .8rem;
+  font-size: .9rem;
+}
+
+input[type=text]:focus {
+  padding: 1.2rem 1rem;
+  color: var(--font-color);
+  font-size: 1rem;
 }

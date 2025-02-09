@@ -84,7 +84,12 @@ const taskApp = {
         const defaultTasks = [new Task('sup'), new Task('Test test test')];
         project1.tasks = defaultTasks;
         this.myProjects.push(project1);
-        this.myProjects.push(new Project('my baby boi', 1));
+       
+        const project2 = new Project('my baby boi', 1);
+        const defaultTasks2 = [new Task('Kylo Ren'), new Task('Is this working ?')];
+        project2.tasks = defaultTasks2;
+        this.myProjects.push(project2);
+
         this.myProjects.push(new Project('so sad', 2));
         this.myProjects.forEach((project) => {
             this.render(project);

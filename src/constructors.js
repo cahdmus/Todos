@@ -8,7 +8,6 @@ class Project {
         this.tasks = {};
     }
 
-
     get title() {
         return this._title;
     }
