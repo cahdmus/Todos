@@ -5,7 +5,7 @@ class Project {
         Project.projectCount++;
         this.title = title;
         this.id = id;
-        this.tasks = {};
+        this.tasks = [];
     }
 
     get title() {
