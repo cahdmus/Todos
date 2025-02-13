@@ -1,100 +1,46 @@
 import { Project, Task } from "./constructors";
-import { displayTasks } from "./displayTasks";
+import { makeDOM } from "./utils";
+import { projectsModule } from "./projectsModule";
 
 const taskApp = {
 
-    myProjects: [],
+    userProjects: [],
     init() {
+        this.defaultProject();
         this.cacheDOM();
-        this.appendDOM();
-        this.defaultProjects();
-        displayTasks.init(this.myProjects[0]);
-        this.bindAddBtn();
+        this.displayPage();
     },
     cacheDOM() {
-        this.projectDisplay = document.querySelector('#projectDisplay');
+        this.content = document.querySelector('#content');
     },
-    appendDOM() {
-        this.projectContainer = document.createElement('ul');
-        this.projectContainer.setAttribute('id', 'projectContainer');
-        this.projectDisplay.appendChild(this.projectContainer);
+    displayPage() {
+        this.nav = makeDOM.element('nav');
+        this.title = makeDOM.id('title', 'h1', 'To-do List');
+        this.nav.appendChild(this.title);
+        makeDOM.hr(this.nav);
         
-        this.hr = document.createElement('hr');
-        this.projectDisplay.appendChild(this.hr);
+        this.content.appendChild(this.nav);
+        this.displayMain();
+        this.nav.appendChild(projectsModule.init(this.userProjects));
         
-        this.addBtn = document.createElement('button');
-        this.addBtn.setAttribute('id', 'addBtn');
-        this.addBtn.innerHTML = 'New Project';
-        this.projectDisplay.appendChild(this.addBtn);
+        this.credits = makeDOM.id('credits', 'div', `made by <a href="https://github.com/cahdmus">@Cahdmus</a>`)
+        this.nav.appendChild(this.credits);
     },
-    bindEvents(project, tab, delBtn) {
-        tab.addEventListener('dblclick', () => {
-            this.renameProject(project, tab);
-        });
-
-        tab.addEventListener('click', () => {
-            displayTasks.init(project);
-        });
+    displayMain() {
+        this.main = makeDOM.element('main');
+        this.content.appendChild(this.main);
+    },
+    defaultProject() {
+        const defaultProject = new Project('Default Project', 0);
+        const defaultTasks = [new Task('Irving B. is the best'), new Task('My baby boi')];
+        defaultProject.tasks = defaultTasks;
+        this.userProjects.push(defaultProject);
         
-        delBtn.addEventListener('click', () => {
-            this.removeProject(project, tab);
-        });
-    },
-    bindAddBtn() {        
-        this.addBtn.addEventListener('click', () => {
-            this.addProject();
-        });
-    },
-    addProject() {
-        const title = prompt('Name of new project', 'enter name');
-        const id = Project.projectCount;
-        const newProject = new Project(title, id);
-        this.myProjects.push(newProject);
-        this.render(newProject);
-    },
-    removeProject(project, tab) {
-        this.projectContainer.removeChild(tab);
-        this.myProjects.splice(project.id, 1)
-        this.cacheDOM();
-    },
-    renameProject(project, tab) {
-        const newTitle = prompt('New Title', 'Enter new title');
-        project.title = newTitle;
-        tab.innerHTML = newTitle;
-        // I should be able to just do render but the way I wrote render
-        // makes it "impossible" but it should be easy to rewroke adding
-        // a "createTab" function then rendering it
-    },
-    render(project) {
-        const tab = document.createElement('li');
-        tab.classList.add('project');
-        tab.innerHTML = project.title;
-        
-        const delBtn = document.createElement('button');
-        delBtn.classList.add('delBtn');
-        delBtn.innerHTML = 'delete';
-        tab.appendChild(delBtn);
-
-        this.projectContainer.appendChild(tab);
-        this.bindEvents(project, tab, delBtn);
-        this.cacheDOM();
-    },
-    defaultProjects() {
-        const project1 = new Project('Irving B. is the best', 0)
-        const defaultTasks = [new Task('sup'), new Task('Test test test')];
-        project1.tasks = defaultTasks;
-        this.myProjects.push(project1);
-       
-        const project2 = new Project('my baby boi', 1);
-        const defaultTasks2 = [new Task('Kylo Ren'), new Task('Is this working ?')];
-        project2.tasks = defaultTasks2;
-        this.myProjects.push(project2);
-
-        this.myProjects.push(new Project('so sad', 2));
-        this.myProjects.forEach((project) => {
-            this.render(project);
-        })
-    },
+        const defaultProject2 = new Project('Kylo Ren', 0);
+        const defaultTasks2 = [new Task('Sup my boy'), new Task('test test')];
+        defaultProject2.tasks = defaultTasks2;
+        this.userProjects.push(defaultProject2);
+    }
 }
 
 export { taskApp };

@@ -13,6 +13,10 @@ const makeDOM = {
         const el = document.createElement(type);
         (value === undefined) ? el : el.innerHTML = value;
         return el;
+    },
+    hr(container) {
+        const hr = document.createElement('hr');
+        container.appendChild(hr);
     }
 }
 

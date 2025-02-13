@@ -171,7 +171,7 @@ nav {
 hr {
   width: 90%;
 }
-#projectDisplay {
+#navModule {
   flex-grow: 1;
   width: 100%;
   display: flex;
@@ -179,12 +179,12 @@ hr {
   align-items: center;
 }
 
-#projectDisplay li:hover {
+#navModule li:hover {
   background-color: var(--border-color);
   padding-left: .5rem;
 }
 
-#projectDisplay li > button {
+#navModule li > button {
   color: var(--accent-color);
   background-color: var(--border-color);
   font-size: .5rem;
@@ -192,7 +192,7 @@ hr {
   border-radius: 5px;
   margin: 0;
 }
-#projectDisplay li > button:hover {
+#navModule li > button:hover {
   background-color: var(--accent-color);
   color: var(--border-color);
 }
