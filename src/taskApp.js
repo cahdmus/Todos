@@ -36,7 +36,7 @@ const taskApp = {
         defaultProject.tasks = defaultTasks;
         this.userProjects.push(defaultProject);
         
-        const defaultProject2 = new Project('Kylo Ren', 0);
+        const defaultProject2 = new Project('Kylo Ren', 1);
         const defaultTasks2 = [new Task('Sup my boy'), new Task('test test')];
         defaultProject2.tasks = defaultTasks2;
         this.userProjects.push(defaultProject2);

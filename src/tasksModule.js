@@ -1,5 +1,6 @@
-import { Project, Task } from "./constructors";
+import { Task } from "./constructors";
 import { makeDOM, formater } from "./utils";
+import { updateTask } from "./updateTask";
 
 const renderTask = {
     init(task) {
@@ -10,15 +11,15 @@ const renderTask = {
         newTask.appendChild(this.content(task.title, task._desc));
         newTask.appendChild(this.dueDate(task.duedate));
 
-        this.bindEvents(newTask);
+        this.bindEvents(newTask, task);
         this.tasksContainer.appendChild(newTask);
     },
     cacheDOM() {
         this.tasksContainer = document.querySelector('#tasksContainer');
     },
-    bindEvents(container) {
+    bindEvents(container, task) {
         container.addEventListener('dblclick', () => {
-            console.log(`Updating`)
+            updateTask.init(task)
         });
     },
     colorBox() {
@@ -49,19 +50,23 @@ const renderTask = {
 
 const tasksModule = {
     init(project) {
+        this.tasks = project.tasks;
         this.cacheDOM();
+        this.projectDisplay = makeDOM.id('projectDisplay', 'div')
+        this.main.appendChild(this.projectDisplay);
         this.projectDisplay.innerHTML = '';
         this.projectDisplay.appendChild(this.title(project._title));
         this.projectDisplay.appendChild(this.tasksContainer());
-        this.projectDisplay.appendChild(this.addNewTask());
+        this.projectDisplay.appendChild(this.displayAddNew());
         this.displayTasks(project);
     },
     cacheDOM() {
-        this.projectDisplay = document.querySelector('main');
+        this.main = document.querySelector('main');
     },
-    bindEvents(tab) {
+    bindEvents(input, tab) {
         tab.addEventListener('click', () => {
-            console.log(`add task`)
+            this.addTask(input.value);
+            input.value = '';
         });
     },
     title(title) {
@@ -76,7 +81,7 @@ const tasksModule = {
             renderTask.init(task);
         });
     },
-    addNewTask() {
+    displayAddNew() {
         const addNewTask = makeDOM.id('addNewTask', 'id');
         const newTaskInput = makeDOM.id('newTaskInput', 'input');
         newTaskInput.setAttribute('placeholder', 'add new task');
@@ -87,9 +92,14 @@ const tasksModule = {
         const newTaskBtn = makeDOM.id('newTaskBtn', 'button', '+');
         addNewTask.appendChild(newTaskBtn);
 
-        this.bindEvents(newTaskBtn)
+        this.bindEvents(newTaskInput, newTaskBtn)
 
         return addNewTask
+    },
+    addTask(title) {
+        const newTask = new Task(title);
+        this.tasks.push(newTask);
+        renderTask.init(newTask);
     }
 }
 

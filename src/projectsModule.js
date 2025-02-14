@@ -1,5 +1,5 @@
 import { makeDOM } from "./utils";
-import { Project, Task } from "./constructors";
+import { Project } from "./constructors";
 import { tasksModule } from "./tasksModule";
 
 const projectsModule = {
@@ -12,7 +12,6 @@ const projectsModule = {
         tasksModule.init(this.projects[0]);
         return this.navModule
     },
-
     displayProjects() {
         this.projectContainer = makeDOM.id('projectContainer', 'ul');
 
@@ -23,39 +22,53 @@ const projectsModule = {
         this.navModule.appendChild(this.projectContainer);
         makeDOM.hr(this.navModule);
     },
-
     addBtn() {
         this.addBtn = makeDOM.id('addBtn', 'button', 'New Project');
         this.navModule.appendChild(this.addBtn);
         this.addBtn.addEventListener('click', () => {
-            console.log('adding project');
+            this.addProject();
         });
     },
-
-    deleteBtn(project) {
+    deleteBtn(project, tab) {
         const delBtn = makeDOM.class('delBtn', 'button', 'delete');
         delBtn.addEventListener('click', () => {
-            console.log(`deleting "${project._title}"`);
+            this.deleteProject(project, tab);
         });
         return delBtn
     },
-
     bindEvents(project, tab) {
         tab.addEventListener('dblclick', () => {
-            console.log(`renaming "${project._title}"`)
+            this.renameProject(project, tab);
         });
 
         tab.addEventListener('click', () => {
             tasksModule.init(project);
-            console.log(`displaying "${project._title}"`)
         });
     },
-    
     render(project) {
-        const tab = makeDOM.class('project', 'li', project.title);
-        tab.appendChild(this.deleteBtn(project));
-        this.bindEvents(project, tab);
+        const tab = makeDOM.class('project', 'li');
+        this.populateTab(project, tab);
         this.projectContainer.appendChild(tab);
+    },
+    populateTab(project, tab) {
+        tab.innerHTML = project.title;
+        tab.appendChild(this.deleteBtn(project, tab));
+        this.bindEvents(project, tab);
+    },
+    renameProject(project, tab) {
+        project.title = prompt('New Title', 'Enter new title');
+        this.populateTab(project, tab);
+    },
+    addProject() {
+        const title = prompt('Name of new project', 'enter name');
+        const id = Project.projectCount;
+        const newProject = new Project(title, id);
+        this.projects.push(newProject);
+        this.render(newProject);
+    },
+    deleteProject(project, tab) {
+        this.projectContainer.removeChild(tab);
+        this.projects.splice(project.id, 1)
     }
 }
 
