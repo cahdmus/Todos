@@ -28,11 +28,13 @@ const taskApp = {
     },
     displayMain() {
         this.main = makeDOM.element('main');
+        this.projectDisplay = makeDOM.id('projectDisplay', 'div')
+        this.main.appendChild(this.projectDisplay);
         this.content.appendChild(this.main);
     },
     defaultProject() {
         const defaultProject = new Project('Default Project', 0);
-        const defaultTasks = [new Task('Irving B. is the best'), new Task('My baby boi')];
+        const defaultTasks = [new Task('Irving B. is the best'), new Task('My baby boi'), new Task('so sad')];
         defaultProject.tasks = defaultTasks;
         this.userProjects.push(defaultProject);
         

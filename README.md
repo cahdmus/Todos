@@ -4,10 +4,10 @@
 ## Check list
 - [x] Make this read me (hehe)
 - [ ] To-do items (objects) with at least these properties : title, description, dueDate and priority. Optional: notes, checklist
-- [ ] Different "projects" to put the to-do items in
+- [x] Different "projects" to put the to-do items in
 - [ ] Default project (when we first open the app)
-- [ ] Seperate modules for logic part of the app (i.e. creating new todos, setting todos as complete, changing todo priority etc.) and for the DOM-related stuff
-- [ ] View all projects
+- [x] Seperate modules for logic part of the app (i.e. creating new todos, setting todos as complete, changing todo priority etc.) and for the DOM-related stuff
+- [x] View all projects
 - [ ] View all todos in each project
 - [ ] Expand a single todo to see/edit its details
 - [ ] Delete a todo

@@ -17,6 +17,31 @@ const makeDOM = {
     hr(container) {
         const hr = document.createElement('hr');
         container.appendChild(hr);
+    },
+    br(container) {
+        const br = document.createElement('br');
+        container.appendChild(br);
+    },
+    formItem(name, type, value, container) {
+        const label = this.element('label', value);
+        label.setAttribute('for', name);
+        const input = this.id(name, 'input');
+        input.setAttribute('type', type)
+        input.setAttribute('name', name)
+
+        container.appendChild(label)
+        return { input }
+        // container.appendChild(input)
+    }, 
+    formRadio(legend, radioItems) {
+        const fieldset = this.element('fieldset')
+        
+        Array.from(radioItems).forEach(item => {
+            const display = this.formItem(legend, 'radio', item, fieldset)
+            fieldset.appendChild(display.input)
+        });
+
+        return fieldset
     }
 }
 

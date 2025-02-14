@@ -52,8 +52,6 @@ const tasksModule = {
     init(project) {
         this.tasks = project.tasks;
         this.cacheDOM();
-        this.projectDisplay = makeDOM.id('projectDisplay', 'div')
-        this.main.appendChild(this.projectDisplay);
         this.projectDisplay.innerHTML = '';
         this.projectDisplay.appendChild(this.title(project._title));
         this.projectDisplay.appendChild(this.tasksContainer());
@@ -61,7 +59,7 @@ const tasksModule = {
         this.displayTasks(project);
     },
     cacheDOM() {
-        this.main = document.querySelector('main');
+        this.projectDisplay = document.querySelector('#projectDisplay');
     },
     bindEvents(input, tab) {
         tab.addEventListener('click', () => {
@@ -80,6 +78,8 @@ const tasksModule = {
         tasks.forEach(task => {
             renderTask.init(task);
         });
+        // To remove later
+        updateTask.init(tasks[0])
     },
     displayAddNew() {
         const addNewTask = makeDOM.id('addNewTask', 'id');

@@ -28,7 +28,6 @@ class Task extends Project {
     constructor(title, desc, dueDate) {
         super(title);
         this.desc = desc;
-        this.isDone = false;
         this.dueDate = dueDate;
         // this.priority = priority;
         // this.notes = notes;
