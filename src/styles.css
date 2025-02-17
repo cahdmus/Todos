@@ -113,7 +113,7 @@ button {
   background-color: var(--accent-color);
   border: none;
   padding: .5rem .7rem;
-  border-radius: 15px;
+  border-radius: .5rem;
   margin: .5rem;
   font-family: var(--accent-font);
   color: var(--accent-font-color);
@@ -146,7 +146,7 @@ li:hover {
   background-color: var(--background-color);
   width: 100%;
   margin: 2rem;
-  border-radius: 25px;
+  border-radius: 1rem;
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -190,7 +190,7 @@ hr {
   background-color: var(--border-color);
   font-size: .5rem;
   padding: .4rem;
-  border-radius: 5px;
+  border-radius: .3rem;
   margin: 0;
 }
 #navModule li > button:hover {

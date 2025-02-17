@@ -3,14 +3,15 @@ import { makeDOM, formater } from "./utils";
 import { updateTask } from "./updateTask";
 
 const renderTask = {
-    init(task) {
+    init(task, project) {
         this.cacheDOM();
+        this.project = project;
         const newTask = makeDOM.class('task', 'li');
         newTask.appendChild(this.colorBox());
         newTask.appendChild(this.checkbox());
         newTask.appendChild(this.content(task.title, task._desc));
-        newTask.appendChild(this.dueDate(task.duedate));
-
+        newTask.appendChild(this.dueDate(task.dueDate));
+        
         this.bindEvents(newTask, task);
         this.tasksContainer.appendChild(newTask);
     },
@@ -19,7 +20,7 @@ const renderTask = {
     },
     bindEvents(container, task) {
         container.addEventListener('dblclick', () => {
-            updateTask.init(task)
+            updateTask.init(task, this.project)
         });
     },
     colorBox() {
@@ -38,8 +39,8 @@ const renderTask = {
         taskContent.appendChild(taskTitle);
 
         if (desc !== undefined) {
-            const desc = makeDOM.class('desc', 'p', desc);
-            taskContent.appendChild(desc);
+            const taskDesc = makeDOM.class('desc', 'p', desc);
+            taskContent.appendChild(taskDesc);
         }
         return taskContent
     },
@@ -50,6 +51,7 @@ const renderTask = {
 
 const tasksModule = {
     init(project) {
+        this.project = project
         this.tasks = project.tasks;
         this.cacheDOM();
         this.projectDisplay.innerHTML = '';
@@ -76,10 +78,10 @@ const tasksModule = {
     displayTasks(project) {
         const tasks = project.tasks;
         tasks.forEach(task => {
-            renderTask.init(task);
+            renderTask.init(task, this.project);
         });
         // To remove later
-        updateTask.init(tasks[0])
+        // updateTask.init(tasks[0], this.project)
     },
     displayAddNew() {
         const addNewTask = makeDOM.id('addNewTask', 'id');
@@ -99,7 +101,7 @@ const tasksModule = {
     addTask(title) {
         const newTask = new Task(title);
         this.tasks.push(newTask);
-        renderTask.init(newTask);
+        renderTask.init(newTask, this.project);
     }
 }
 

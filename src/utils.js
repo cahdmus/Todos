@@ -34,10 +34,11 @@ const makeDOM = {
         // container.appendChild(input)
     }, 
     formRadio(legend, radioItems) {
-        const fieldset = this.element('fieldset')
-        
+        const fieldset = this.element('fieldset');
+
         Array.from(radioItems).forEach(item => {
-            const display = this.formItem(legend, 'radio', item, fieldset)
+            const display = this.formItem(item, 'radio', item, fieldset)
+            display.input.setAttribute('name', legend)
             fieldset.appendChild(display.input)
         });
 
@@ -51,8 +52,9 @@ const formater = {
     date(date) {
         // 'year, month, day'
         // '1995, 9, 2'
-        return (date === undefined) ? 'no due date' 
-            : format(new Date(date), 'eee dd MMM');
+        
+        return (date === undefined || date.length === 0) ? 'no due date' 
+            : format(new Date(date.replace(/-/g, ", ")), 'eee dd MMM');
     }
 }
 
