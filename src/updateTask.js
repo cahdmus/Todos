@@ -62,7 +62,7 @@ const updateTask = {
         this.container.removeChild(this.updateTab)
     },
     closeBtn() {
-        const closeBtn = makeDOM.id('closeUpdateTabBtn', 'button', 'x');
+        const closeBtn = makeDOM.id('closeUpdateTabBtn', 'button');
         closeBtn.addEventListener('click', () => {
             this.closeTab();
         });
@@ -136,7 +136,9 @@ const updateTask = {
         return deleteBtn;
     },
     deleteTask() {
-        console.log(this.task.title);
+        const index = this.project.tasks.indexOf(this.task)
+        this.project.tasks.splice(index, 1)
+        this.updateTask();
         this.closeTab();
     }
 }

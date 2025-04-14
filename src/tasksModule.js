@@ -7,11 +7,11 @@ const renderTask = {
         this.cacheDOM();
         this.project = project;
         const newTask = makeDOM.class('task', 'li');
-        newTask.appendChild(this.colorBox());
+        newTask.appendChild(this.colorBox(task.priority));
         newTask.appendChild(this.checkbox());
         newTask.appendChild(this.content(task.title, task._desc));
         newTask.appendChild(this.dueDate(task.dueDate));
-        
+
         this.bindEvents(newTask, task);
         this.tasksContainer.appendChild(newTask);
     },
@@ -23,8 +23,22 @@ const renderTask = {
             updateTask.init(task, this.project)
         });
     },
-    colorBox() {
-        return makeDOM.class('colorBox', 'div')
+    colorBox(priority) {
+        const colorBox = makeDOM.class('colorBox', 'div');
+        let newClass;
+
+        if (priority == undefined) {
+            newClass = 'defaultPriority'
+        } else if (priority == 'Low') {
+            newClass = 'lowPriority'
+        } else if (priority == 'Medium') {
+            newClass = 'mediumPriority'
+        } else if (priority == 'High') {
+            newClass = 'highPriority'
+        }
+
+        colorBox.classList.add(newClass);
+        return colorBox;
     },
     checkbox() {
         const checkboxContainer = makeDOM.class('checkbox', 'div');

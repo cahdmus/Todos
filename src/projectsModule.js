@@ -41,7 +41,7 @@ const projectsModule = {
             this.renameProject(project, tab);
         });
 
-        tab.addEventListener('click', () => {
+        this.tabTitle.addEventListener('click', () => {
             tasksModule.init(project);
         });
     },
@@ -51,7 +51,8 @@ const projectsModule = {
         this.projectContainer.appendChild(tab);
     },
     populateTab(project, tab) {
-        tab.innerHTML = project.title;
+        tab.innerHTML = '';
+        this.tabTitle = tab.appendChild(makeDOM.element('p', project.title))
         tab.appendChild(this.deleteBtn(project, tab));
         this.bindEvents(project, tab);
     },
@@ -67,8 +68,9 @@ const projectsModule = {
         this.render(newProject);
     },
     deleteProject(project, tab) {
+        tasksModule.init(this.projects[0]);
         this.projectContainer.removeChild(tab);
-        this.projects.splice(project.id, 1)
+        this.projects.splice(project.id, 1);
     }
 }
 

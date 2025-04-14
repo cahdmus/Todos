@@ -46,6 +46,8 @@ body {
 ------------------------ */
 *, *:before, *:after {
   box-sizing: inherit;
+  scrollbar-color: var(--accent-color) var(--background-color);
+  scrollbar-width: thin;
   /* Uncomment next line when you're lost */
   /* border: 1px dotted red; */
 }
@@ -141,6 +143,9 @@ li:hover {
 
 /* CONTENT
 ----------------------------------------------- */
+nav, main {
+  overflow-y: auto;
+}
 
 #content {
   background-color: var(--background-color);
@@ -178,6 +183,13 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+#navModule li {
+  display: flex;
+}
+
+#navModule li p {
+  flex: 1;
 }
 
 #navModule li:hover {
@@ -303,6 +315,22 @@ input[type="checkbox"]:checked::before, input[type="radio"]:checked::before {
   text-align: right;
 }
 
+.defaultPriority {
+  background-color: var(--accent-font-color);
+}
+
+.lowPriority {
+  background-color: var(--accent-color);
+}
+
+.mediumPriority {
+  background-color: var(--third-accent-color);
+}
+
+.highPriority {
+  background-color: var(--secondary-accent-color);
+}
+
 /* Add New Task
 ------------------------ */
 #addNewTask {
@@ -361,11 +389,19 @@ input[type=text]:focus, input[type=date]:focus, textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--main-font);
-  padding: .5rem .5rem .7rem .5rem;
-  background-color: var(--accent-border-color);
-  color: var(--font-color);
+  font-family: var(--accent-font);
+  padding: .4rem;
+  background-color: var(--accent-color);
+  color: var(--border-color);
   font-weight: bolder;
+}
+
+#closeUpdateTabBtn::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+  background-color: var(--border-color);
 }
 
 #updateTab > #deleteTaskBtn {
