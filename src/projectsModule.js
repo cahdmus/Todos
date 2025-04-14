@@ -66,6 +66,7 @@ const projectsModule = {
         const newProject = new Project(title, id);
         this.projects.push(newProject);
         this.render(newProject);
+        tasksModule.init(newProject);
     },
     deleteProject(project, tab) {
         tasksModule.init(this.projects[0]);
