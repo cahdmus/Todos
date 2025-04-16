@@ -248,7 +248,7 @@ main {
 }
 
 .colorBox {
-  background-color: var(--accent-color);
+  /* background-color: var(--accent-color); */
   grid-area: 1 / 1 / 2 / 2;
 }
 

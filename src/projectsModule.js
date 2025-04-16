@@ -72,7 +72,7 @@ const projectsModule = {
         tasksModule.init(this.projects[0]);
         this.projectContainer.removeChild(tab);
         this.projects.splice(project.id, 1);
-    }
+    },
 }
 
 export { projectsModule }
