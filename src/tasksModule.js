@@ -42,13 +42,18 @@ const renderTask = {
         colorBox.classList.add(newClass);
         return colorBox;
     },
-    checkbox(status) {
+    checkbox(task, status) {
         const checkboxContainer = makeDOM.class('checkbox', 'div');
         const checkbox = makeDOM.class('input', 'input');
         checkbox.setAttribute('type', 'checkbox');
         checkboxContainer.appendChild(checkbox);
 
         checkbox.checked = status;
+        
+        checkboxContainer.addEventListener('click', () => {
+            task.status = checkbox.checked
+            saveLocal.project(this.userProjects)
+        });
 
         return checkboxContainer
     },

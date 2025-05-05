@@ -29,8 +29,8 @@ const updateTask = {
         this.container.appendChild(this.updateTab);
     },
     updateTask() {
-        this.task.title = this.titleInput.value;
-        this.task.desc = this.descInput.value;
+        this.task._title = this.titleInput.value;
+        this.task._desc = this.descInput.value;
         this.task.priority = document.querySelector('input[name="priority"]:checked').id;
         this.task.dueDate = this.dateInput.value;
 
@@ -60,6 +60,7 @@ const updateTask = {
     updateTaskDisplay() {
         this.closeTab();
         this.loadTab();
+        console.log(this.task)
     },
     closeTab() {
         this.container.removeChild(this.updateTab)
@@ -86,7 +87,7 @@ const updateTask = {
 
         const desc = makeDOM.formItem('desc', 'text', 'Description', form);
         this.descInput = desc.input;
-        (this.task.desc === undefined) ? false : this.descInput.value = this.task.desc;
+        (this.task._desc === undefined) ? false : this.descInput.value = this.task._desc;
         form.appendChild(this.descInput)
         makeDOM.hr(form);
 
