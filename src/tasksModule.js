@@ -3,12 +3,13 @@ import { makeDOM, formater } from "./utils";
 import { updateTask } from "./updateTask";
 
 const renderTask = {
-    init(task, project) {
+    init(task, project, userProjects) {
         this.cacheDOM();
         this.project = project;
+        this.userProjects = userProjects;
         const newTask = makeDOM.class('task', 'li');
         newTask.appendChild(this.colorBox(task.priority));
-        newTask.appendChild(this.checkbox());
+        newTask.appendChild(this.checkbox(task, task.status));
         newTask.appendChild(this.content(task.title, task._desc));
         newTask.appendChild(this.dueDate(task.dueDate));
 
@@ -20,7 +21,7 @@ const renderTask = {
     },
     bindEvents(container, task) {
         container.addEventListener('dblclick', () => {
-            updateTask.init(task, this.project)
+            updateTask.init(task, this.project, this.userProjects)
         });
     },
     colorBox(priority) {
@@ -40,11 +41,14 @@ const renderTask = {
         colorBox.classList.add(newClass);
         return colorBox;
     },
-    checkbox() {
+    checkbox(status) {
         const checkboxContainer = makeDOM.class('checkbox', 'div');
         const checkbox = makeDOM.class('input', 'input');
         checkbox.setAttribute('type', 'checkbox');
         checkboxContainer.appendChild(checkbox);
+
+        checkbox.checked = status;
+
         return checkboxContainer
     },
     content(title, desc) {
@@ -64,8 +68,9 @@ const renderTask = {
 }
 
 const tasksModule = {
-    init(project) {
-        this.project = project
+    init(project, userProjects) {
+        this.project = project;
+        this.userProjects = userProjects;
         this.tasks = project.tasks;
         this.cacheDOM();
         this.projectDisplay.innerHTML = '';
@@ -92,7 +97,7 @@ const tasksModule = {
     displayTasks(project) {
         const tasks = project.tasks;
         tasks.forEach(task => {
-            renderTask.init(task, this.project);
+            renderTask.init(task, this.project, this.userProjects);
         });
         // To remove later
         // updateTask.init(tasks[0], this.project)

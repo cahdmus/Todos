@@ -9,7 +9,7 @@ const projectsModule = {
         this.navModule = makeDOM.id('navModule', 'div');
         this.displayProjects();
         this.addBtn();
-        tasksModule.init(this.projects[0]);
+        tasksModule.init(this.projects[0], this.projects);
         return this.navModule
     },
     displayProjects() {
@@ -42,7 +42,7 @@ const projectsModule = {
         });
 
         this.tabTitle.addEventListener('click', () => {
-            tasksModule.init(project);
+            tasksModule.init(project, this.projects);
         });
     },
     render(project) {
@@ -66,10 +66,10 @@ const projectsModule = {
         const newProject = new Project(title, id);
         this.projects.push(newProject);
         this.render(newProject);
-        tasksModule.init(newProject);
+        tasksModule.init(newProject, this.projects);
     },
     deleteProject(project, tab) {
-        tasksModule.init(this.projects[0]);
+        tasksModule.init(this.projects[0], this.projects);
         this.projectContainer.removeChild(tab);
         this.projects.splice(project.id, 1);
     },

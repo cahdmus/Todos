@@ -2,10 +2,35 @@ import { Project, Task } from "./constructors";
 import { makeDOM } from "./utils";
 import { projectsModule } from "./projectsModule";
 
+function storageAvailable(type) {
+    let storage;
+    try {
+      storage = window[type];
+      const x = "__storage_test__";
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return (
+        e instanceof DOMException &&
+        e.name === "QuotaExceededError" &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage &&
+        storage.length !== 0
+      );
+    }
+  }
+
 const taskApp = {
 
     userProjects: [],
     init() {
+        if (storageAvailable("localStorage") && localStorage.getItem('userProjects')) {
+            console.log(localStorage.getItem('userProjects'))
+            this.userProjects = JSON.parse(localStorage.getItem('userProjects'));
+        } else {
+            this.defaultProject();
+        }
         this.defaultProject();
         this.cacheDOM();
         this.displayPage();
@@ -34,14 +59,12 @@ const taskApp = {
     },
     defaultProject() {
         const defaultProject = new Project('Default Project', 0);
-        const defaultTasks = [new Task('Irving B. is the best'), new Task('My baby boi'), new Task('so sad')];
+        let task1 = new Task(`I'm a simple checked task`, '', '', '', true);
+        let task2 = new Task(`I'm a task with a priority and a due date`, '', 'Low', '09-02-1995', false);
+        let task3 = new Task(`I'm a task with a description and a different priority`, `Double click on a task to edit it !`, 'High', '', false);
+        const defaultTasks = [task1, task2, task3];
         defaultProject.tasks = defaultTasks;
         this.userProjects.push(defaultProject);
-        
-        const defaultProject2 = new Project('Kylo Ren', 1);
-        const defaultTasks2 = [new Task('Sup my boy'), new Task('test test')];
-        defaultProject2.tasks = defaultTasks2;
-        this.userProjects.push(defaultProject2);
     }
 }
 

@@ -3,8 +3,9 @@ import { makeDOM, formater } from "./utils";
 import { tasksModule } from "./tasksModule";
 
 const updateTask = {
-    init(task, project) {
+    init(task, project, userProjects) {
         this.cacheDOM();
+        this.userProjects = userProjects;
         this.project = project;
          (task === undefined) ? this.task = {} : this.task = task;
         // this.task = task;
@@ -35,6 +36,11 @@ const updateTask = {
 
         this.updateTaskDisplay();
         tasksModule.init(this.project);
+
+        const projectsSave = JSON.stringify(this.userProjects);
+        // console.log(this.userProjects);
+        console.log(JSON.parse(projectsSave));
+        localStorage.setItem("userProjects", projectsSave);
     },
     getPriority() {
         const priority = this.task.priority;
