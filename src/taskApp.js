@@ -26,12 +26,12 @@ const taskApp = {
     userProjects: [],
     init() {
         if (storageAvailable("localStorage") && localStorage.getItem('userProjects')) {
-            console.log(localStorage.getItem('userProjects'))
+            // console.log(JSON.parse(localStorage.getItem('userProjects')))
             this.userProjects = JSON.parse(localStorage.getItem('userProjects'));
         } else {
             this.defaultProject();
+            console.log('nothing in local storage')
         }
-        this.defaultProject();
         this.cacheDOM();
         this.displayPage();
     },

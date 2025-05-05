@@ -1,5 +1,5 @@
 import { Project, Task } from "./constructors";
-import { makeDOM, formater } from "./utils";
+import { makeDOM, saveLocal } from "./utils";
 import { tasksModule } from "./tasksModule";
 
 const updateTask = {
@@ -37,10 +37,7 @@ const updateTask = {
         this.updateTaskDisplay();
         tasksModule.init(this.project);
 
-        const projectsSave = JSON.stringify(this.userProjects);
-        // console.log(this.userProjects);
-        console.log(JSON.parse(projectsSave));
-        localStorage.setItem("userProjects", projectsSave);
+        saveLocal.project(this.userProjects)
     },
     getPriority() {
         const priority = this.task.priority;
@@ -75,7 +72,7 @@ const updateTask = {
         return closeBtn;
     },
     title() {
-        return makeDOM.id('projectTitle', 'h1', this.task.title)
+        return makeDOM.id('projectTitle', 'h1', this.task._title)
     },
     // form for it all
     displayForm() {
@@ -83,7 +80,7 @@ const updateTask = {
 
         const title = makeDOM.formItem('title', 'text', 'Change title', form);
         this.titleInput = title.input;
-        this.titleInput.value = this.task.title;
+        this.titleInput.value = this.task._title;
         form.appendChild(this.titleInput);
         makeDOM.br(form);
 

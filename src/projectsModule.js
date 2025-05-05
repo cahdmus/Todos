@@ -1,4 +1,4 @@
-import { makeDOM } from "./utils";
+import { makeDOM, saveLocal } from "./utils";
 import { Project } from "./constructors";
 import { tasksModule } from "./tasksModule";
 
@@ -27,6 +27,7 @@ const projectsModule = {
         this.navModule.appendChild(this.addBtn);
         this.addBtn.addEventListener('click', () => {
             this.addProject();
+            saveLocal.project(this.projects)
         });
     },
     deleteBtn(project, tab) {
@@ -52,13 +53,14 @@ const projectsModule = {
     },
     populateTab(project, tab) {
         tab.innerHTML = '';
-        this.tabTitle = tab.appendChild(makeDOM.element('p', project.title))
+        this.tabTitle = tab.appendChild(makeDOM.element('p', project._title))
         tab.appendChild(this.deleteBtn(project, tab));
         this.bindEvents(project, tab);
     },
     renameProject(project, tab) {
-        project.title = prompt('New Title', 'Enter new title');
+        project._title = prompt('New Title', 'Enter new title');
         this.populateTab(project, tab);
+        saveLocal.project(this.projects)
     },
     addProject() {
         const title = prompt('Name of new project', 'enter name');
@@ -71,7 +73,9 @@ const projectsModule = {
     deleteProject(project, tab) {
         tasksModule.init(this.projects[0], this.projects);
         this.projectContainer.removeChild(tab);
-        this.projects.splice(project.id, 1);
+        let index = this.projects.indexOf(project)
+        this.projects.splice(index, 1);
+        saveLocal.project(this.projects)
     },
 }
 

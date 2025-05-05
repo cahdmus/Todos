@@ -1,16 +1,17 @@
 import { Task } from "./constructors";
-import { makeDOM, formater } from "./utils";
+import { makeDOM, formater, saveLocal } from "./utils";
 import { updateTask } from "./updateTask";
 
 const renderTask = {
     init(task, project, userProjects) {
+        // console.log(task)
         this.cacheDOM();
         this.project = project;
         this.userProjects = userProjects;
         const newTask = makeDOM.class('task', 'li');
         newTask.appendChild(this.colorBox(task.priority));
         newTask.appendChild(this.checkbox(task, task.status));
-        newTask.appendChild(this.content(task.title, task._desc));
+        newTask.appendChild(this.content(task._title, task._desc));
         newTask.appendChild(this.dueDate(task.dueDate));
 
         this.bindEvents(newTask, task);
@@ -121,6 +122,7 @@ const tasksModule = {
         const newTask = new Task(title);
         this.tasks.push(newTask);
         renderTask.init(newTask, this.project);
+        saveLocal.project(this.userProjects)
     }
 }
 

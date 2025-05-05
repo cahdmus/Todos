@@ -46,6 +46,15 @@ const makeDOM = {
     }
 }
 
+const saveLocal = {
+    project(project) {
+        const projectsSave = JSON.stringify(project);
+        // console.log(this.userProjects);
+        // console.log(JSON.parse(projectsSave));
+        localStorage.setItem("userProjects", projectsSave);
+    }
+}
+
 
 import { format } from "date-fns";
 const formater = {
@@ -58,4 +67,4 @@ const formater = {
     }
 }
 
-export { makeDOM, formater }
+export { makeDOM, formater, saveLocal }
